@@ -1,0 +1,104 @@
+@import '../../Styles/Variables.scss';
+
+$fontSize: 1.5rem;
+$widthMenuBarsResponsive: 50%;
+
+.headerContainer {
+    height: $heightHeader;
+    width: 100%;
+    position: fixed;
+    top: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 6rem;
+
+    background: linear-gradient(135deg, #FFFFFF1A, #FFFFFF00);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    %headerMenuBase {
+        list-style-type: none;
+        font-size: $fontSize;
+        cursor: pointer;
+
+        a {
+            text-decoration: none;
+            color: $color-text;
+            ;
+        }
+    }
+
+    .headerMenu,
+    .headerMenuResponsive {
+        ul {
+            @extend %headerMenuBase;
+
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+    }
+
+    .headerIcon {
+        font-size: $fontSize * 1.5;
+        cursor: pointer;
+        display: none;
+    }
+}
+
+@keyframes showMenuBars {
+    0% {
+        right: calc($widthMenuBarsResponsive * -1);
+    }
+
+    100% {
+        right: 0;
+    }
+}
+
+
+@media screen and (max-width: 670px) {
+    .headerContainer {
+        padding: 2rem 4rem;
+
+        .headerMenu {
+            display: none;
+        }
+
+        .headerIcon {
+            display: block;
+        }
+
+        .headerMenuResponsive {
+            ul {
+                animation: showMenuBars ease-in 0.3s;
+
+                flex-direction: column;
+                position: absolute;
+                top: $heightHeader;
+                right: 0;
+                width: $widthMenuBarsResponsive;
+                border-radius: 1rem 0 0 1rem;
+
+                li {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    a {
+                        padding: 1rem;
+                        width: 100%;
+                        text-align: center;
+
+                        &:hover {
+                            border-radius: 1rem 0 0 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
